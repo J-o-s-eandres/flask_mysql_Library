@@ -49,14 +49,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td >1</td>
-                        <td>Python</td>
-                        <td>imagen.jpg</td>
-                        <td>http://python.org</td>
+                    {% for libro in libros %} <!-- recorremos las consultas -->
+                    <tr>    <!--mostraremos los indices de la columna(id,nombre,imagen y url) -->
+                        <td>{{ libro[0]  }}</td> <!--id -->
+                        <td>{{ libro[1]  }}</td> <!--nombre -->
+                        <td>{{ libro[2]  }}</td> <!--imagen -->
+                        <td>{{ libro[3]  }}</td> <!-- url -->
                         <td>eliminar</td>
                     </tr>
-                   
+                    {% endfor %}
+
+
                 </tbody>
             </table>
             
