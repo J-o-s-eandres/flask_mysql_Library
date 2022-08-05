@@ -4,60 +4,20 @@
 
 
     <div class="row">
-
+        {%for libro in libros %}
         <div class="col-md-3">
             <div class="card">
-                <img class="card-img-top" src="https://books.goalkicker.com/PythonBook/PythonGrow.png" alt="Title">
+                <img class="card-img-top" src="/img/{{libro[2]}}" alt="Title">
                 <div class="card-body">
-                    <h4 class="card-title">Python</h4>
+                    <h4 class="card-title">{{libro[1]}}</h4>
                     <p class="card-text">
 
-                        <a name="" id="" class="btn btn-primary" href="http://python.org/descarga.pdf" role="button">Descargar</a>
+                        <a name="" id="" class="btn btn-primary" href="{{libro[3]}}" role="button">Descargar</a>
                     </p>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="https://books.goalkicker.com/PythonBook/PythonGrow.png" alt="Title">
-                <div class="card-body">
-                    <h4 class="card-title">Python</h4>
-                    <p class="card-text">
-
-                        <a name="" id="" class="btn btn-primary" href="http://python.org/descarga.pdf" role="button">Descargar</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="https://books.goalkicker.com/PythonBook/PythonGrow.png" alt="Title">
-                <div class="card-body">
-                    <h4 class="card-title">Python</h4>
-                    <p class="card-text">
-
-                        <a name="" id="" class="btn btn-primary" href="http://python.org/descarga.pdf" role="button">Descargar</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="https://books.goalkicker.com/PythonBook/PythonGrow.png" alt="Title">
-                <div class="card-body">
-                    <h4 class="card-title">Python</h4>
-                    <p class="card-text">
-
-                        <a name="" id="" class="btn btn-primary" href="http://python.org/descarga.pdf" role="button">Descargar</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        
+     {%endfor %}
     </div>
 
 {%include 'sitio/pie.html'%}
