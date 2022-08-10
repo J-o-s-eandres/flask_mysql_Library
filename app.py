@@ -63,8 +63,8 @@ def admin_login():
 def admin_login_post():
     _usuario=request.form['txtUsuario']
     _password= request.form['txtPassword']
-    print(_usuario)
-    print(_password)
+    #print(_usuario)
+    #print(_password)
 
     if _usuario=="admin" and _password=="1234":#si el usuario se logo de manera correcta creamos las variables de sesion
         session["login"]=True
@@ -88,8 +88,8 @@ def admin_libros():
     cursor.execute("SELECT * FROM `libros` ")
     libros = cursor.fetchall()#recuperacion de los ,obros y almacenamiento en la variable "libros"
     conexion.commit()
-    print(libros)
-    print(conexion) 
+    #print(libros)
+    #print(conexion) 
 
     return render_template("admin/libros.html",libros=libros)
 
@@ -119,9 +119,9 @@ def admin_libros_guardar():
     cursor.execute(sql,datos)#el cursor ejecuta la instruccion sql y se integra los datos (que enviara el usuario)
     conexion.commit()# se hace una creacion 
 
-    print(_nombre)
-    print(_archivo)
-    print(_url)
+   # print(_nombre)
+    #print(_archivo)
+   # print(_url)
     return redirect('/admin/libros')
 
 @app.route("/admin/libros/borrar",methods=['POST'])
@@ -130,14 +130,14 @@ def admin_libros_borrar():
         return redirect("/admin/login")
 
     _id=request.form['txtID']#recepcionamos el id
-    print(_id)
+    #print(_id)
 
     conexion=mysql.connect()#conexion con la bd
     cursor = conexion.cursor()#cursor
     cursor.execute("SELECT imagen FROM `libros` WHERE id =%s ",(_id))
     libro = cursor.fetchall()#recuperacion de los ,obros y almacenamiento en la variable "libros"
     conexion.commit()
-    print(libro)
+    #print(libro)
     
     if os.path.exists("templates/sitio/img/"+str(libro[0][0])):
         os.unlink("templates/sitio/img/"+str(libro[0][0]))
