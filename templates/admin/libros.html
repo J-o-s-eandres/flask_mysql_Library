@@ -38,7 +38,7 @@
         </div>
         <div class="col-md-7">
            
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -54,12 +54,16 @@
                         <td>{{ libro[0]  }}</td> <!--id -->
                         <td>{{ libro[1]  }}</td> <!--nombre -->
 
-                        <td><img width="80" src="/img/{{ libro[2]  }}" class="img-fluid rounded-top" alt="">
-                            {{ libro[2]  }}</td> <!--imagen -->
-                        <td>{{ libro[3]  }}</td> <!-- url -->
+                        <td><img width="80" src="/img/{{ libro[2]  }}" class="img-fluid rounded-top" alt=""></td> <!--imagen -->
+                        <td>
+                           
+                            <a name="" id="" class="btn btn-success" href="{{ libro[3]  }}" role="button">Enlace</a>
+                            
+                        
+                        </td> <!-- url -->
                         <td> 
                             <form action="/admin/libros/borrar" method="post">
-                            <input value="{{ libro[0]  }}" type="text" name="txtID" id="txtID">
+                            <input value="{{ libro[0]  }}" type="hidden" name="txtID" id="txtID">
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                            </form></td>
                     </tr>

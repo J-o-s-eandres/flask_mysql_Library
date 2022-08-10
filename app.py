@@ -70,7 +70,7 @@ def admin_login_post():
         session["login"]=True
         session["usuario"]="Administrador"
         return redirect("/admin")
-    return render_template("admin/login.html")
+    return render_template("admin/login.html",mensaje="Acceso Denegado")
 
 
 @app.route('/admin/cerrar')
