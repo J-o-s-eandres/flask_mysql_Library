@@ -1,10 +1,11 @@
 import os
 from flask import Flask
-from flask import render_template,request , redirect
+from flask import render_template,request , redirect,session
 from flaskext.mysql import MySQL
 from datetime import datetime
 from flask import send_from_directory
 app = Flask(__name__)
+app.secret_key="jgm" #variable de sesion
 mysql=MySQL()
 
 app.config['MYSQL_DATABASE_HOST']='localhost'
@@ -22,6 +23,12 @@ def imagenes(imagen):
     print(imagen)
     return send_from_directory(os.path.join('templates/sitio/img'),imagen)
 
+@app.route("/css/<archivocss>")
+def css_lick(archivocss):
+    return send_from_directory(os.path.join('templates/sitio/css'),archivocss)
+
+
+
 @app.route("/libros")
 def libros():
 
@@ -30,7 +37,7 @@ def libros():
     cursor.execute("SELECT * FROM `libros` ")
     libros = cursor.fetchall()#recuperacion de los ,obros y almacenamiento en la variable "libros"
     conexion.commit() 
-        
+
     return render_template('sitio/libros.html',libros=libros) 
 
 
@@ -41,14 +48,41 @@ def nosotros():
 
 @app.route("/admin/")
 def admin_index():
+    if not 'login' in session :
+        return redirect("/admin/login")
+
     return render_template('admin/index.html')
+    
 
 @app.route("/admin/login")
 def admin_login():
     return render_template('admin/login.html')
 
+
+@app.route("/admin/login",methods=['POST'])
+def admin_login_post():
+    _usuario=request.form['txtUsuario']
+    _password= request.form['txtPassword']
+    print(_usuario)
+    print(_password)
+
+    if _usuario=="admin" and _password=="1234":#si el usuario se logo de manera correcta creamos las variables de sesion
+        session["login"]=True
+        session["usuario"]="Administrador"
+        return redirect("/admin")
+    return render_template("admin/login.html")
+
+
+@app.route('/admin/cerrar')
+def admin_login_cerrar():
+    session.clear()#limpiamos las variables de sesion
+    return redirect('/admin/login')
+
 @app.route("/admin/libros")
 def admin_libros():
+    if not 'login' in session :
+        return redirect("/admin/login")
+
     conexion=mysql.connect()#conexion con la bd
     cursor = conexion.cursor()#cursor
     cursor.execute("SELECT * FROM `libros` ")
@@ -61,6 +95,9 @@ def admin_libros():
 
 @app.route("/admin/libros/guardar",methods=['POST'])
 def admin_libros_guardar():
+    if not 'login' in session :
+        return redirect("/admin/login")
+
     _nombre=request.form['txtNombre']#recepcion de los archivos (va el mismo nombre que se le dio al input en el form)  
     _url=request.form['txtURL'] #recepcion de los archivos (va el mismo nombre que se le dio al input en el form)
     _archivo=request.files["txtImagen"] #recepcion de las imagenes (va el mismo nombre que se le dio al input en el form)
@@ -89,6 +126,9 @@ def admin_libros_guardar():
 
 @app.route("/admin/libros/borrar",methods=['POST'])
 def admin_libros_borrar():
+    if not 'login' in session :
+        return redirect("/admin/login")
+
     _id=request.form['txtID']#recepcionamos el id
     print(_id)
 
